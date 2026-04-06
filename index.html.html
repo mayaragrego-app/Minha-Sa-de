@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Minha Saúde ✨</title>
+<style>
+:root {
+  --pink:        #d6006e;
+  --pink-mid:    #e8357a;
+  --pink-light:  #ff6fa8;
+  --pink-pale:   #ffe0ef;
+  --pink-ultra:  #fff0f6;
+  --rose:        #c0004f;
+  --green:       #00a86b;
+  --green-light: #d6f5ea;
+  --yellow:      #e07800;
+  --yellow-light:#fff0d6;
+  --red:         #d62839;
+  --red-light:   #fde8ea;
+  --purple:      #7c3aed;
+  --purple-light:#ede9fe;
+  --bg:          #fdf0f6;
+  --card:        #ffffff;
+  --text:        #1a0a12;
+  --text2:       #6b2d4a;
+  --border:      #f0b8d4;
+  --shadow:      0 4px 20px rgba(214,0,110,0.10);
+  --shadow-lg:   0 8px 40px rgba(214,0,110,0.18);
+  --r:           14px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ══ HERO HEADER ══ */
+.hero{
+  background: linear-gradient(135deg, var(--rose) 0%, var(--pink) 45%, var(--pink-light) 100%);
+  padding: 36px 32px 0;
+  position: relative; overflow: hidden;
+}
+.hero::before{
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(255,255,255,0.12) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero-blob{
+  position:absolute; right:-60px; top:-60px;
+  width:260px; height:260px; border-radius:50%;
+  background:rgba(255,255,255,0.07); pointer-events:none;
+}
+.hero-blob2{
+  position:absolute; right:60px; top:80px;
+  width:130px; height:130px; border-radius:50%;
+  background:rgba(255,255,255,0.06); pointer-events:none;
+}
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:6px;position:relative;}
+.hero-top .logo{
+  width:52px;height:52px;border-radius:16px;
+  background:rgba(255,255,255,0.22);
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px; backdrop-filter:blur(4px);
+  box-shadow:0 2px 12px rgba(0,0,0,0.15);
+}
+.hero-top h1{font-size:26px;font-weight:800;color:#fff;letter-spacing:-.3px;}
+.hero-top p{font-size:13px;color:rgba(255,255,255,0.80);margin-top:3px;}
+
+/* ══ NAV TABS ══ */
+nav{display:flex;gap:2px;overflow-x:auto;padding-bottom:0;position:relative;margin-top:18px;}
+nav::-webkit-scrollbar{height:0;}
+nav button{
+  background:none;border:none;
+  color:rgba(255,255,255,0.65);
+  padding:11px 18px;font-size:13.5px;font-weight:600;
+  border-radius:12px 12px 0 0;cursor:pointer;
+  white-space:nowrap;transition:all .2s;
+  display:flex;align-items:center;gap:6px;letter-spacing:.1px;
+}
+nav button:hover{color:#fff;background:rgba(255,255,255,0.18);}
+nav button.active{color:var(--pink);background:var(--bg);font-weight:700;}
+
+/* ══ MAIN ══ */
+main{padding:28px 22px;max-width:1060px;margin:0 auto;}
+.section{display:none;}
+.section.active{display:block;}
+
+/* ══ HERO STATS ══ */
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:14px;margin-bottom:30px;
+}
+.stat-card{
+  background:var(--card);border-radius:var(--r);
+  padding:18px 16px;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:14px;
+  border:1.5px solid var(--border);
+  transition:transform .15s,box-shadow .15s;
+}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+.stat-icon{
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+}
+.stat-card .num{font-size:28px;font-weight:800;color:var(--pink);}
+.stat-card .lbl{font-size:12px;color:var(--text2);font-weight:600;margin-top:1px;}
+
+/* ══ SECTION TITLE ══ */
+.section-title{
+  font-size:16px;font-weight:800;margin-bottom:14px;
+  color:var(--text);display:flex;align-items:center;gap:8px;
+  letter-spacing:-.1px;
+}
+.section-title::after{content:'';flex:1;height:1.5px;background:var(--border);border-radius:2px;}
+
+/* ══ UPCOMING ══ */
+.upcoming-list{display:flex;flex-direction:column;gap:10px;}
+.upcoming-item{
+  background:var(--card);border-radius:12px;
+  padding:14px 18px;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:14px;
+  border-left:4px solid var(--pink);
+  border:1.5px solid var(--border);
+  border-left:4px solid var(--pink);
+}
+.date-badge{
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:#fff;border-radius:10px;padding:7px 10px;
+  text-align:center;min-width:52px;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(214,0,110,0.25);
+}
+.date-badge .day{font-size:20px;font-weight:800;line-height:1;}
+.date-badge .mon{font-size:10px;text-transform:uppercase;font-weight:700;opacity:.9;}
+.upcoming-item .info h4{font-size:14px;font-weight:700;}
+.upcoming-item .info p{font-size:12px;color:var(--text2);margin-top:2px;}
+.empty-dash{color:var(--text2);font-size:14px;padding:10px 0;opacity:.7;}
+
+/* ══ TOOLBAR ══ */
+.toolbar{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:18px;flex-wrap:wrap;gap:10px;
+}
+.search-box{
+  display:flex;align-items:center;gap:8px;
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:10px;padding:9px 14px;flex:1;
+  min-width:180px;max-width:320px;
+}
+.search-box input{border:none;outline:none;font-size:14px;width:100%;background:transparent;color:var(--text);}
+.btn-add{
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:#fff;border:none;padding:10px 22px;border-radius:10px;
+  font-size:14px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;gap:7px;
+  box-shadow:0 4px 14px rgba(214,0,110,0.30);
+  transition:all .2s;letter-spacing:.1px;
+}
+.btn-add:hover{background:linear-gradient(135deg,var(--rose),var(--pink));box-shadow:0 6px 18px rgba(214,0,110,0.40);transform:translateY(-1px);}
+
+/* ══ LAUDOS ══ */
+.laudo-card{
+  background:var(--card);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:20px;
+  display:flex;flex-direction:column;gap:10px;
+  border:1.5px solid var(--border);
+  transition:transform .15s,box-shadow .15s;
+}
+.laudo-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.laudo-top{display:flex;align-items:flex-start;gap:12px;}
+.laudo-icon{
+  width:46px;height:46px;border-radius:12px;
+  background:linear-gradient(135deg,#ffe0ef,#ffc2da);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+}
+.laudo-title{font-size:15px;font-weight:800;color:var(--text);}
+.laudo-sub{font-size:12px;color:var(--text2);margin-top:2px;font-weight:500;}
+.laudo-diag{
+  background:var(--pink-ultra);border-left:4px solid var(--pink);
+  border-radius:0 8px 8px 0;padding:10px 13px;
+  font-size:13px;color:var(--text);line-height:1.55;
+}
+.laudo-diag strong{color:var(--pink);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+
+/* ══ MURAIS ══ */
+.murais-wrap{
+  display:flex;gap:20px;overflow-x:auto;padding-bottom:16px;align-items:flex-start;
+}
+.murais-wrap::-webkit-scrollbar{height:6px;}
+.murais-wrap::-webkit-scrollbar-track{background:var(--pink-pale);border-radius:4px;}
+.murais-wrap::-webkit-scrollbar-thumb{background:var(--pink-mid);border-radius:4px;}
+.mural-col{
+  min-width:270px;max-width:270px;border-radius:16px;
+  padding:16px;display:flex;flex-direction:column;gap:12px;
+  flex-shrink:0;
+}
+.mural-header{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  margin-bottom:2px;
+}
+.mural-title{
+  font-size:14px;font-weight:800;color:var(--text);
+  display:flex;align-items:center;gap:7px;flex:1;
+}
+.mural-actions{display:flex;gap:5px;}
+.btn-mural-sm{
+  background:rgba(255,255,255,0.60);border:none;border-radius:7px;
+  padding:5px 9px;font-size:12px;font-weight:700;cursor:pointer;
+  transition:all .2s;color:var(--text2);
+}
+.btn-mural-sm:hover{background:rgba(255,255,255,0.95);color:var(--pink);}
+.btn-mural-del{color:var(--red);}
+.btn-mural-del:hover{background:var(--red);color:#fff;}
+.sticky{
+  background:#fff;border-radius:12px;padding:13px 14px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+  font-size:13px;line-height:1.55;color:var(--text);
+  position:relative;border-left:4px solid transparent;
+  transition:transform .15s,box-shadow .15s;
+  word-break:break-word;
+}
+.sticky:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(0,0,0,0.13);}
+.sticky .sticky-text{white-space:pre-wrap;}
+.sticky .sticky-date{font-size:11px;color:var(--text2);margin-top:6px;opacity:.7;}
+.sticky-footer{display:flex;justify-content:flex-end;gap:5px;margin-top:8px;}
+.btn-sticky-del{
+  background:none;border:none;font-size:13px;cursor:pointer;
+  color:var(--text2);opacity:.5;transition:opacity .2s;padding:0 2px;
+}
+.btn-sticky-del:hover{opacity:1;color:var(--red);}
+.btn-sticky-edit{
+  background:none;border:none;font-size:13px;cursor:pointer;
+  color:var(--text2);opacity:.5;transition:opacity .2s;padding:0 2px;
+}
+.btn-sticky-edit:hover{opacity:1;color:var(--pink);}
+.btn-add-note{
+  background:rgba(255,255,255,0.55);border:2px dashed rgba(255,255,255,0.80);
+  border-radius:10px;padding:10px;width:100%;
+  font-size:13px;font-weight:700;color:var(--text2);
+  cursor:pointer;transition:all .2s;letter-spacing:.2px;
+}
+.btn-add-note:hover{background:rgba(255,255,255,0.90);color:var(--pink);border-color:var(--pink);}
+.btn-new-mural{
+  min-width:180px;max-width:180px;flex-shrink:0;
+  background:var(--pink-pale);border:2px dashed var(--pink);
+  border-radius:16px;padding:28px 16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  cursor:pointer;transition:all .2s;color:var(--pink);font-weight:700;font-size:14px;
+  align-self:flex-start;
+}
+.btn-new-mural:hover{background:var(--pink);color:#fff;border-color:var(--pink);}
+.btn-new-mural .icon{font-size:28px;}
+
+/* ══ ARCHIVE TOGGLE ══ */
+.archive-toggle{
+  margin-top:28px;display:flex;align-items:center;gap:10px;cursor:pointer;
+  color:var(--text2);font-size:13px;font-weight:700;user-select:none;
+}
+.archive-toggle::before{content:'';flex:1;height:1.5px;background:var(--border);}
+.archive-toggle::after{content:'';flex:1;height:1.5px;background:var(--border);}
+.archive-section{display:none;}
+.archive-section.open{display:grid;}
+
+/* ══ CARDS GRID ══ */
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  gap:16px;
+}
+
+/* ══ ITEM CARD ══ */
+.item-card{
+  background:var(--card);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:18px;
+  display:flex;flex-direction:column;gap:10px;
+  border:1.5px solid var(--border);
+  transition:transform .15s,box-shadow .15s;
+}
+.item-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.item-card.archived-card{opacity:.55;border-style:dashed;}
+.card-header{display:flex;align-items:flex-start;gap:12px;}
+.card-icon{
+  width:44px;height:44px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:21px;flex-shrink:0;
+}
+.card-title{font-size:15px;font-weight:800;line-height:1.3;color:var(--text);}
+.card-sub{font-size:12px;color:var(--text2);margin-top:2px;font-weight:500;}
+.card-body{display:flex;flex-direction:column;gap:5px;}
+.field{font-size:13px;color:var(--text2);display:flex;gap:6px;align-items:flex-start;}
+.field span:first-child{flex-shrink:0;}
+.field strong{color:var(--text);font-weight:600;}
+.card-actions{
+  display:flex;gap:7px;margin-top:4px;
+  border-top:1.5px solid var(--border);padding-top:10px;flex-wrap:wrap;
+}
+.btn-edit,.btn-del,.btn-archive,.btn-unarchive{
+  flex:1;border:none;border-radius:8px;padding:7px 6px;
+  font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;
+  white-space:nowrap;min-width:60px;
+}
+.btn-edit{background:var(--pink-pale);color:var(--pink);}
+.btn-edit:hover{background:var(--pink);color:#fff;}
+.btn-del{background:var(--red-light);color:var(--red);}
+.btn-del:hover{background:var(--red);color:#fff;}
+.btn-archive{background:var(--yellow-light);color:var(--yellow);}
+.btn-archive:hover{background:var(--yellow);color:#fff;}
+.btn-unarchive{background:var(--green-light);color:var(--green);}
+.btn-unarchive:hover{background:var(--green);color:#fff;}
+
+/* ══ BADGES ══ */
+.badge{
+  display:inline-block;padding:3px 10px;border-radius:20px;
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+}
+.badge-green{background:var(--green-light);color:var(--green);}
+.badge-yellow{background:var(--yellow-light);color:var(--yellow);}
+.badge-red{background:var(--red-light);color:var(--red);}
+.badge-pink{background:var(--pink-pale);color:var(--pink);}
+.badge-purple{background:var(--purple-light);color:var(--purple);}
+.badge-gray{background:#f0f0f0;color:#888;}
+
+/* ══ EMPTY STATE ══ */
+.empty-state{
+  text-align:center;padding:52px 20px;
+  color:var(--text2);grid-column:1/-1;
+}
+.empty-state .icon{font-size:52px;margin-bottom:14px;opacity:.45;}
+.empty-state p{font-size:15px;font-weight:500;}
+
+/* ══ MODAL ══ */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(26,10,18,0.55);z-index:100;
+  align-items:center;justify-content:center;padding:20px;
+  backdrop-filter:blur(3px);
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--card);border-radius:20px;
+  width:100%;max-width:490px;max-height:90vh;
+  overflow-y:auto;box-shadow:0 24px 80px rgba(214,0,110,0.25);
+  animation:popIn .2s ease;
+}
+@keyframes popIn{from{transform:scale(.94);opacity:0;}to{transform:scale(1);opacity:1;}}
+.modal-header{
+  padding:22px 24px 16px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  border-radius:20px 20px 0 0;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.modal-header h2{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.2px;}
+.modal-close{
+  background:rgba(255,255,255,0.25);border:none;
+  width:30px;height:30px;border-radius:8px;
+  font-size:16px;cursor:pointer;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+.modal-close:hover{background:rgba(255,255,255,0.4);}
+.modal-body{padding:22px 24px;display:flex;flex-direction:column;gap:14px;}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-group label{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;}
+.form-group input,.form-group select,.form-group textarea{
+  border:1.5px solid var(--border);border-radius:9px;
+  padding:10px 13px;font-size:14px;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  background:#fff;color:var(--text);font-family:inherit;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  border-color:var(--pink);box-shadow:0 0 0 3px rgba(214,0,110,0.10);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.modal-footer{
+  padding:14px 24px 22px;
+  display:flex;gap:10px;justify-content:flex-end;
+  border-top:1.5px solid var(--border);
+}
+.btn-cancel{
+  background:#f5f5f5;color:var(--text2);border:1.5px solid var(--border);
+  padding:10px 20px;border-radius:9px;font-size:14px;
+  font-weight:700;cursor:pointer;transition:all .2s;
+}
+.btn-cancel:hover{background:var(--border);}
+.btn-save{
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:#fff;border:none;padding:10px 26px;border-radius:9px;
+  font-size:14px;font-weight:700;cursor:pointer;
+  box-shadow:0 4px 14px rgba(214,0,110,0.30);transition:all .2s;
+}
+.btn-save:hover{background:linear-gradient(135deg,var(--rose),var(--pink));transform:translateY(-1px);}
+
+/* ══ TOAST ══ */
+#toast{
+  position:fixed;bottom:24px;right:24px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-light));
+  color:#fff;padding:13px 22px;border-radius:12px;font-size:14px;font-weight:700;
+  box-shadow:0 6px 24px rgba(214,0,110,0.35);
+  transform:translateY(80px);opacity:0;transition:all .3s;z-index:200;
+}
+#toast.show{transform:translateY(0);opacity:1;}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:540px){
+  main{padding:18px 12px;}
+  .form-row{grid-template-columns:1fr;}
+  nav button{padding:10px 12px;font-size:12.5px;}
+  .hero{padding:24px 18px 0;}
+  .hero-top h1{font-size:21px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO HEADER ═══ -->
+<div class="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-blob2"></div>
+  <div class="hero-top">
+    <div class="logo">🌸</div>
+    <div>
+      <h1>Minha Saúde</h1>
+      <p>Sua agenda médica pessoal ✨</p>
+    </div>
+  </div>
+  <nav>
+    <button class="active" onclick="showTab('dashboard',this)">🏠 Início</button>
+    <button onclick="showTab('medicos',this)">👩‍⚕️ Médicos</button>
+    <button onclick="showTab('consultas',this)">📅 Consultas</button>
+    <button onclick="showTab('exames',this)">🔬 Exames</button>
+    <button onclick="showTab('medicamentos',this)">💊 Medicamentos</button>
+    <button onclick="showTab('suplementos',this)">🌿 Suplementação</button>
+    <button onclick="showTab('laudos',this)">📋 Laudos</button>
+    <button onclick="showTab('murais',this)">📌 Murais</button>
+  </nav>
+</div>
+
+<main>
+
+<!-- ═══ DASHBOARD ═══ -->
+<section class="section active" id="sec-dashboard">
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:linear-gradient(135deg,#ffe0ef,#ffc2da)">👩‍⚕️</div>
+      <div><div class="num" id="cnt-med">0</div><div class="lbl">Médicos</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:linear-gradient(135deg,#ffe0ef,#ffc2da)">📅</div>
+      <div><div class="num" id="cnt-con">0</div><div class="lbl">Consultas</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:linear-gradient(135deg,#ffe0ef,#ffc2da)">🔬</div>
+      <div><div class="num" id="cnt-exa">0</div><div class="lbl">Exames</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:linear-gradient(135deg,#ffe0ef,#ffc2da)">💊</div>
+      <div><div class="num" id="cnt-rem">0</div><div class="lbl">Remédios</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:linear-gradient(135deg,#ffe0ef,#ffc2da)">🌿</div>
+      <div><div class="num" id="cnt-sup">0</div><div class="lbl">Suplementos</div></div>
+    </div>
+  </div>
+
+  <p class="section-title">📌 Próximas Consultas</p>
+  <div class="upcoming-list" id="upcoming-list">
+    <p class="empty-dash">Nenhuma consulta futura cadastrada.</p>
+  </div>
+
+  <p class="section-title" style="margin-top:28px">🔬 Próximos Exames</p>
+  <div class="upcoming-list" id="upcoming-exames">
+    <p class="empty-dash">Nenhum exame futuro cadastrado.</p>
+  </div>
+</section>
+
+<!-- ═══ MÉDICOS ═══ -->
+<section class="section" id="sec-medicos">
+  <div class="toolbar">
+    <div class="search-box">🔍 <input type="text" placeholder="Buscar médico..." oninput="renderMedicos(this.value)"></div>
+    <button class="btn-add" onclick="openModal('medico')">+ Adicionar Médico</button>
+  </div>
+  <div class="cards-grid" id="grid-medicos"></div>
+</section>
+
+<!-- ═══ CONSULTAS ═══ -->
+<section class="section" id="sec-consultas">
+  <div class="toolbar">
+    <div class="search-box">🔍 <input type="text" placeholder="Buscar consulta..." oninput="renderConsultas(this.value)"></div>
+    <button class="btn-add" onclick="openModal('consulta')">+ Adicionar Consulta</button>
+  </div>
+  <div class="cards-grid" id="grid-consultas"></div>
+</section>
+
+<!-- ═══ EXAMES ═══ -->
+<section class="section" id="sec-exames">
+  <div class="toolbar">
+    <div class="search-box">🔍 <input type="text" placeholder="Buscar exame..." oninput="renderExames(this.value)"></div>
+    <button class="btn-add" onclick="openModal('exame')">+ Adicionar Exame</button>
+  </div>
+  <div class="cards-grid" id="grid-exames"></div>
+</section>
+
+<!-- ═══ MEDICAMENTOS ═══ -->
+<section class="section" id="sec-medicamentos">
+  <div class="toolbar">
+    <div class="search-box">🔍 <input type="text" placeholder="Buscar medicamento..." oninput="renderMedicamentos(this.value)"></div>
+    <button class="btn-add" onclick="openModal('medicamento')">+ Adicionar Medicamento</button>
+  </div>
+  <div class="cards-grid" id="grid-medicamentos"></div>
+  <div class="archive-toggle" onclick="toggleArchive('medicamentos')" id="toggle-arch-medicamentos">📦 Ver Arquivados</div>
+  <div class="cards-grid archive-section" id="arch-medicamentos"></div>
+</section>
+
+<!-- ═══ SUPLEMENTAÇÃO ═══ -->
+<section class="section" id="sec-suplementos">
+  <div class="toolbar">
+    <div class="search-box">🔍 <input type="text" placeholder="Buscar suplemento..." oninput="renderSuplementos(this.value)"></div>
+    <button class="btn-add" onclick="openModal('suplemento')">+ Adicionar Suplemento</button>
+  </div>
+  <div class="cards-grid" id="grid-suplementos"></div>
+  <div class="archive-toggle" onclick="toggleArchive('suplementos')" id="toggle-arch-suplementos">📦 Ver Arquivados</div>
+  <div class="cards-grid archive-section" id="arch-suplementos"></div>
+</section>
+
+<!-- ═══ LAUDOS ═══ -->
+<section class="section" id="sec-laudos">
+  <div class="toolbar">
+    <div class="search-box">🔍 <input type="text" placeholder="Buscar laudo..." oninput="renderLaudos(this.value)"></div>
+    <button class="btn-add" onclick="openModal('laudo')">+ Adicionar Laudo</button>
+  </div>
+  <div class="cards-grid" id="grid-laudos"></div>
+</section>
+
+<!-- ═══ MURAIS ═══ -->
+<section class="section" id="sec-murais">
+  <div class="toolbar" style="margin-bottom:20px">
+    <div style="font-size:15px;font-weight:800;color:var(--text2)">📌 Seus murais de anotações</div>
+  </div>
+  <div class="murais-wrap" id="murais-wrap"></div>
+</section>
+
+</main>
+
+<!-- ═══════ MODALS ═══════ -->
+
+<!-- Médico -->
+<div class="modal-overlay" id="modal-medico">
+  <div class="modal">
+    <div class="modal-header"><h2 id="modal-medico-title">👩‍⚕️ Adicionar Médico</h2><button class="modal-close" onclick="closeModal('medico')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="med-id">
+      <div class="form-group"><label>Nome do Médico *</label><input type="text" id="med-nome" placeholder="Dr(a). Nome Sobrenome"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Especialidade</label><input type="text" id="med-esp" placeholder="Ex: Cardiologia"></div>
+        <div class="form-group"><label>CRM</label><input type="text" id="med-crm" placeholder="12345-SP"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Telefone / WhatsApp</label><input type="text" id="med-tel" placeholder="(11) 99999-9999"></div>
+        <div class="form-group"><label>Convênio</label><input type="text" id="med-conv" placeholder="Ex: Unimed"></div>
+      </div>
+      <div class="form-group"><label>Endereço / Clínica</label><input type="text" id="med-end" placeholder="Rua, número – Bairro, Cidade"></div>
+      <div class="form-group"><label>Observações</label><textarea id="med-obs" rows="2" placeholder="Notas..."></textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeModal('medico')">Cancelar</button><button class="btn-save" onclick="saveMedico()">Salvar</button></div>
+  </div>
+</div>
+
+<!-- Consulta -->
+<div class="modal-overlay" id="modal-consulta">
+  <div class="modal">
+    <div class="modal-header"><h2 id="modal-consulta-title">📅 Adicionar Consulta</h2><button class="modal-close" onclick="closeModal('consulta')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="con-id">
+      <div class="form-group"><label>Médico / Especialidade *</label><input type="text" id="con-med" placeholder="Dr(a). Nome ou Especialidade"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Data *</label><input type="date" id="con-data"></div>
+        <div class="form-group"><label>Horário</label><input type="time" id="con-hora"></div>
+      </div>
+      <div class="form-group"><label>Local / Clínica</label><input type="text" id="con-local" placeholder="Nome da clínica ou hospital"></div>
+      <div class="form-group"><label>Status</label>
+        <select id="con-status">
+          <option value="agendada">📅 Agendada</option>
+          <option value="realizada">✅ Realizada</option>
+          <option value="cancelada">❌ Cancelada</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Observações / Resultado</label><textarea id="con-obs" rows="3" placeholder="Diagnóstico, recomendações, receitas..."></textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeModal('consulta')">Cancelar</button><button class="btn-save" onclick="saveConsulta()">Salvar</button></div>
+  </div>
+</div>
+
+<!-- Exame -->
+<div class="modal-overlay" id="modal-exame">
+  <div class="modal">
+    <div class="modal-header"><h2 id="modal-exame-title">🔬 Adicionar Exame</h2><button class="modal-close" onclick="closeModal('exame')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="exa-id">
+      <div class="form-group"><label>Nome do Exame *</label><input type="text" id="exa-nome" placeholder="Ex: Hemograma, Glicemia..."></div>
+      <div class="form-row">
+        <div class="form-group"><label>Data *</label><input type="date" id="exa-data"></div>
+        <div class="form-group"><label>Tipo</label>
+          <select id="exa-tipo">
+            <option value="laboratorial">🧪 Laboratorial</option>
+            <option value="imagem">🩻 Imagem</option>
+            <option value="cardiologico">❤️ Cardiológico</option>
+            <option value="outro">📋 Outro</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Laboratório / Clínica</label><input type="text" id="exa-lab" placeholder="Nome do laboratório"></div>
+      <div class="form-group"><label>Médico Solicitante</label><input type="text" id="exa-medico" placeholder="Dr(a). Nome"></div>
+      <div class="form-group"><label>Status</label>
+        <select id="exa-status">
+          <option value="agendado">📅 Agendado</option>
+          <option value="realizado">✅ Realizado</option>
+          <option value="aguardando">⏳ Aguardando Resultado</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Resultado / Observações</label><textarea id="exa-obs" rows="3" placeholder="Resultado, valores, obs..."></textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeModal('exame')">Cancelar</button><button class="btn-save" onclick="saveExame()">Salvar</button></div>
+  </div>
+</div>
+
+<!-- Medicamento -->
+<div class="modal-overlay" id="modal-medicamento">
+  <div class="modal">
+    <div class="modal-header"><h2 id="modal-medicamento-title">💊 Adicionar Medicamento</h2><button class="modal-close" onclick="closeModal('medicamento')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="medi-id">
+      <div class="form-group"><label>Nome do Medicamento *</label><input type="text" id="medi-nome" placeholder="Ex: Losartana 50mg"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Dosagem</label><input type="text" id="medi-dose" placeholder="Ex: 50mg"></div>
+        <div class="form-group"><label>Frequência</label><input type="text" id="medi-freq" placeholder="Ex: 1x ao dia"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Horário(s)</label><input type="text" id="medi-hora" placeholder="Ex: 08:00 e 20:00"></div>
+        <div class="form-group"><label>Uso contínuo?</label>
+          <select id="medi-cont"><option value="sim">✅ Sim</option><option value="nao">⏱️ Temporário</option></select>
+        </div>
+      </div>
+      <div class="form-group"><label>Médico que Receitou</label><input type="text" id="medi-med" placeholder="Dr(a). Nome"></div>
+      <div class="form-group"><label>Data de Início</label><input type="date" id="medi-inicio"></div>
+      <div class="form-group"><label>Observações</label><textarea id="medi-obs" rows="2" placeholder="Indicação, efeitos, cuidados..."></textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeModal('medicamento')">Cancelar</button><button class="btn-save" onclick="saveMedicamento()">Salvar</button></div>
+  </div>
+</div>
+
+<!-- Suplemento -->
+<div class="modal-overlay" id="modal-suplemento">
+  <div class="modal">
+    <div class="modal-header"><h2 id="modal-suplemento-title">🌿 Adicionar Suplemento</h2><button class="modal-close" onclick="closeModal('suplemento')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="sup-id">
+      <div class="form-group"><label>Nome do Suplemento *</label><input type="text" id="sup-nome" placeholder="Ex: Vitamina D3, Ômega 3..."></div>
+      <div class="form-row">
+        <div class="form-group"><label>Dosagem</label><input type="text" id="sup-dose" placeholder="Ex: 2000 UI, 1g"></div>
+        <div class="form-group"><label>Frequência</label><input type="text" id="sup-freq" placeholder="Ex: 1x ao dia"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Horário</label><input type="text" id="sup-hora" placeholder="Ex: Manhã, 08:00"></div>
+        <div class="form-group"><label>Forma</label>
+          <select id="sup-forma">
+            <option value="capsula">💊 Cápsula</option>
+            <option value="po">🥄 Pó</option>
+            <option value="liquido">💧 Líquido</option>
+            <option value="comprimido">⬜ Comprimido</option>
+            <option value="goma">🍬 Goma</option>
+            <option value="outro">📦 Outro</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Marca / Fabricante</label><input type="text" id="sup-marca" placeholder="Ex: Vitafor..."></div>
+      <div class="form-group"><label>Indicado por</label><input type="text" id="sup-indicado" placeholder="Ex: Dra. Carla, nutricionista..."></div>
+      <div class="form-group"><label>Objetivo / Para que serve</label><textarea id="sup-obs" rows="2" placeholder="Ex: Imunidade, disposição..."></textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeModal('suplemento')">Cancelar</button><button class="btn-save" onclick="saveSuplemento()">Salvar</button></div>
+  </div>
+</div>
+
+<!-- Modal Laudo -->
+<div class="modal-overlay" id="modal-laudo">
+  <div class="modal">
+    <div class="modal-header"><h2 id="modal-laudo-title">📋 Adicionar Laudo</h2><button class="modal-close" onclick="closeModal('laudo')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="lau-id">
+      <div class="form-group"><label>Título / Tipo do Laudo *</label><input type="text" id="lau-titulo" placeholder="Ex: Relatório Médico, Laudo de Hemograma..."></div>
+      <div class="form-row">
+        <div class="form-group"><label>Data do Documento *</label><input type="date" id="lau-data"></div>
+        <div class="form-group"><label>Especialidade</label><input type="text" id="lau-esp" placeholder="Ex: Hematologia"></div>
+      </div>
+      <div class="form-group"><label>Médico Responsável</label><input type="text" id="lau-medico" placeholder="Dr(a). Nome — CRM"></div>
+      <div class="form-group"><label>Instituição / Hospital</label><input type="text" id="lau-inst" placeholder="Ex: Centro Oncologia Campinas"></div>
+      <div class="form-group"><label>CID / Diagnóstico</label><input type="text" id="lau-cid" placeholder="Ex: D56.0 — Alfatalassemia"></div>
+      <div class="form-group"><label>Resumo / Conteúdo do Laudo *</label><textarea id="lau-resumo" rows="5" placeholder="Cole aqui o conteúdo do laudo ou faça um resumo..."></textarea></div>
+      <div class="form-group"><label>Observações</label><textarea id="lau-obs" rows="2" placeholder="Notas pessoais, próximos passos..."></textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeModal('laudo')">Cancelar</button><button class="btn-save" onclick="saveLaudo()">Salvar</button></div>
+  </div>
+</div>
+
+<!-- Modal Novo Mural -->
+<div class="modal-overlay" id="modal-mural">
+  <div class="modal">
+    <div class="modal-header"><h2 id="modal-mural-title">📌 Novo Mural</h2><button class="modal-close" onclick="closeModal('mural')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="mural-id">
+      <div class="form-group"><label>Título do Mural *</label><input type="text" id="mural-titulo" placeholder="Ex: Retornos, Afirmações, Lembretes..."></div>
+      <div class="form-group"><label>Ícone</label>
+        <select id="mural-icon">
+          <option value="📌">📌 Fixado</option>
+          <option value="🔁">🔁 Retornos</option>
+          <option value="👩‍⚕️">👩‍⚕️ Médicos</option>
+          <option value="💊">💊 Medicamentos</option>
+          <option value="✨">✨ Afirmações</option>
+          <option value="📝">📝 Anotações</option>
+          <option value="⚠️">⚠️ Alertas</option>
+          <option value="🎯">🎯 Metas</option>
+          <option value="💡">💡 Dicas</option>
+          <option value="❤️">❤️ Saúde</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Cor do Mural</label>
+        <select id="mural-cor">
+          <option value="#ffe0ef">🌸 Rosa claro</option>
+          <option value="#fce8b2">🌼 Amarelo</option>
+          <option value="#d4edda">🌿 Verde</option>
+          <option value="#d1ecf1">💙 Azul claro</option>
+          <option value="#e2d9f3">💜 Lilás</option>
+          <option value="#fde8e8">❤️ Vermelho claro</option>
+          <option value="#fff3e0">🍊 Laranja claro</option>
+          <option value="#f0f0f0">🩶 Cinza claro</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeModal('mural')">Cancelar</button><button class="btn-save" onclick="saveMural()">Criar Mural</button></div>
+  </div>
+</div>
+
+<!-- Modal Nova Nota -->
+<div class="modal-overlay" id="modal-nota">
+  <div class="modal">
+    <div class="modal-header"><h2 id="modal-nota-title">📝 Nova Anotação</h2><button class="modal-close" onclick="closeModal('nota')">✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="nota-mural-id">
+      <input type="hidden" id="nota-id">
+      <div class="form-group"><label>Anotação *</label>
+        <textarea id="nota-texto" rows="5" placeholder="Ex: Marcar retorno daqui 6 meses com hematologista&#10;Ex: Vitamina D3 — pedir exame em março&#10;Ex: Eu sou saudável e cuido de mim com amor 💕"></textarea>
+      </div>
+      <div class="form-group"><label>Cor da nota</label>
+        <select id="nota-cor">
+          <option value="#d6006e">🌸 Rosa (destaque)</option>
+          <option value="#e07800">🟠 Laranja</option>
+          <option value="#00a86b">🟢 Verde</option>
+          <option value="#7c3aed">💜 Roxo</option>
+          <option value="#1a0a12">⚫ Escuro</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeModal('nota')">Cancelar</button><button class="btn-save" onclick="saveNota()">Salvar</button></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ──────────────────────────────────────
+//  STORAGE
+// ──────────────────────────────────────
+const KEYS={medicos:'ms_medicos',consultas:'ms_consultas',exames:'ms_exames',medicamentos:'ms_medicamentos',suplementos:'ms_suplementos',murais:'ms_murais',laudos:'ms_laudos'};
+function load(k){try{return JSON.parse(localStorage.getItem(KEYS[k]))||[];}catch(e){return [];}}
+function save(k,d){localStorage.setItem(KEYS[k],JSON.stringify(d));}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+
+let medicos      = load('medicos');
+let consultas    = load('consultas');
+let exames       = load('exames');
+let medicamentos = load('medicamentos');
+let suplementos  = load('suplementos');
+
+// ──────────────────────────────────────
+//  NAVIGATION
+// ──────────────────────────────────────
+function showTab(tab,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+tab).classList.add('active');
+  if(btn) btn.classList.add('active');
+  const renders={dashboard:renderDashboard,medicos:renderMedicos,consultas:renderConsultas,exames:renderExames,medicamentos:renderMedicamentos,suplementos:renderSuplementos,laudos:renderLaudos,murais:renderMurais};
+  if(renders[tab]) renders[tab]();
+}
+
+// ──────────────────────────────────────
+//  ARCHIVE TOGGLE
+// ──────────────────────────────────────
+function toggleArchive(type){
+  const el=document.getElementById('arch-'+type);
+  const btn=document.getElementById('toggle-arch-'+type);
+  const open=el.classList.toggle('open');
+  btn.textContent=open?'📦 Ocultar Arquivados':'📦 Ver Arquivados';
+}
+
+// ──────────────────────────────────────
+//  DASHBOARD
+// ──────────────────────────────────────
+function renderDashboard(){
+  document.getElementById('cnt-med').textContent  = medicos.length;
+  document.getElementById('cnt-con').textContent  = consultas.length;
+  document.getElementById('cnt-exa').textContent  = exames.length;
+  document.getElementById('cnt-rem').textContent  = medicamentos.filter(m=>!m.arquivado).length;
+  document.getElementById('cnt-sup').textContent  = suplementos.filter(s=>!s.arquivado).length;
+
+  const today=new Date(); today.setHours(0,0,0,0);
+  const upCon=consultas.filter(c=>c.status==='agendada'&&new Date(c.data+'T00:00:00')>=today)
+    .sort((a,b)=>new Date(a.data)-new Date(b.data)).slice(0,5);
+  const ulC=document.getElementById('upcoming-list');
+  ulC.innerHTML=upCon.length?upCon.map(c=>upCard(c,'c')).join(''):'<p class="empty-dash">Nenhuma consulta futura cadastrada.</p>';
+
+  const upExa=exames.filter(e=>e.status==='agendado'&&new Date(e.data+'T00:00:00')>=today)
+    .sort((a,b)=>new Date(a.data)-new Date(b.data)).slice(0,5);
+  const ulE=document.getElementById('upcoming-exames');
+  ulE.innerHTML=upExa.length?upExa.map(e=>upCard(e,'e')).join(''):'<p class="empty-dash">Nenhum exame futuro cadastrado.</p>';
+}
+
+function upCard(item,t){
+  const d=new Date(item.data+'T00:00:00');
+  const M=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  const title=t==='c'?item.medico:item.nome;
+  const sub=t==='c'?(item.local||'—'):(item.laboratorio||'—');
+  const h=item.hora?' às '+item.hora:'';
+  return `<div class="upcoming-item">
+    <div class="date-badge"><div class="day">${d.getDate()}</div><div class="mon">${M[d.getMonth()]}</div></div>
+    <div class="info"><h4>${esc(title)}</h4><p>${esc(sub)}${h}</p></div>
+  </div>`;
+}
+
+// ──────────────────────────────────────
+//  MODAL HELPERS
+// ──────────────────────────────────────
+function openModal(t){document.getElementById('modal-'+t).classList.add('open');}
+function closeModal(t){document.getElementById('modal-'+t).classList.remove('open');clearForm(t);}
+
+function clearForm(t){
+  const sets={
+    medico:   ['med-id','med-nome','med-esp','med-crm','med-tel','med-conv','med-end','med-obs'],
+    consulta: ['con-id','con-med','con-data','con-hora','con-local','con-obs'],
+    exame:    ['exa-id','exa-nome','exa-data','exa-lab','exa-medico','exa-obs'],
+    medicamento:['medi-id','medi-nome','medi-dose','medi-freq','medi-hora','medi-med','medi-inicio','medi-obs'],
+    suplemento: ['sup-id','sup-nome','sup-dose','sup-freq','sup-hora','sup-marca','sup-indicado','sup-obs'],
+  };
+  (sets[t]||[]).forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  const selDefaults={
+    'con-status':'agendada','exa-tipo':'laboratorial','exa-status':'agendado',
+    'medi-cont':'sim','sup-forma':'capsula'
+  };
+  Object.entries(selDefaults).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.value=v;});
+  const titles={medico:'👩‍⚕️ Adicionar Médico',consulta:'📅 Adicionar Consulta',exame:'🔬 Adicionar Exame',
+    medicamento:'💊 Adicionar Medicamento',suplemento:'🌿 Adicionar Suplemento',
+    mural:'📌 Novo Mural',nota:'📝 Nova Anotação',
+    laudo:'📋 Adicionar Laudo'};
+  const h=document.getElementById('modal-'+t+'-title');
+  if(h&&titles[t])h.textContent=titles[t];
+}
+
+document.querySelectorAll('.modal-overlay').forEach(o=>{
+  o.addEventListener('click',e=>{if(e.target===o)closeModal(o.id.replace('modal-',''));});
+});
+
+// ──────────────────────────────────────
+//  MÉDICOS
+// ──────────────────────────────────────
+function renderMedicos(q=''){
+  const g=document.getElementById('grid-medicos');
+  const list=q?medicos.filter(m=>JSON.stringify(m).toLowerCase().includes(q.toLowerCase())):medicos;
+  if(!list.length){g.innerHTML=`<div class="empty-state"><div class="icon">👩‍⚕️</div><p>${q?'Nenhum resultado.':'Nenhum médico cadastrado ainda!'}</p></div>`;return;}
+  g.innerHTML=list.map(m=>`
+    <div class="item-card">
+      <div class="card-header">
+        <div class="card-icon" style="background:linear-gradient(135deg,#ffe0ef,#ffc2da)">👩‍⚕️</div>
+        <div><div class="card-title">${esc(m.nome)}</div><div class="card-sub">${esc(m.especialidade||'')}</div></div>
+      </div>
+      <div class="card-body">
+        ${m.crm?`<div class="field"><span>🪪</span><span>CRM: <strong>${esc(m.crm)}</strong></span></div>`:''}
+        ${m.telefone?`<div class="field"><span>📞</span><span><strong>${esc(m.telefone)}</strong></span></div>`:''}
+        ${m.convenio?`<div class="field"><span>🏥</span><span>${esc(m.convenio)}</span></div>`:''}
+        ${m.endereco?`<div class="field"><span>📍</span><span>${esc(m.endereco)}</span></div>`:''}
+        ${m.observacoes?`<div class="field"><span>📝</span><span>${esc(m.observacoes)}</span></div>`:''}
+      </div>
+      <div class="card-actions">
+        <button class="btn-edit" onclick="editMedico('${m.id}')">✏️ Editar</button>
+        <button class="btn-del" onclick="delMedico('${m.id}')">🗑️ Remover</button>
+      </div>
+    </div>`).join('');
+}
+function saveMedico(){
+  const nome=document.getElementById('med-nome').value.trim();
+  if(!nome){alert('Informe o nome do médico.');return;}
+  const id=document.getElementById('med-id').value||uid();
+  const obj={id,nome,especialidade:document.getElementById('med-esp').value.trim(),
+    crm:document.getElementById('med-crm').value.trim(),
+    telefone:document.getElementById('med-tel').value.trim(),
+    convenio:document.getElementById('med-conv').value.trim(),
+    endereco:document.getElementById('med-end').value.trim(),
+    observacoes:document.getElementById('med-obs').value.trim()};
+  const idx=medicos.findIndex(m=>m.id===id);
+  if(idx>=0)medicos[idx]=obj;else medicos.push(obj);
+  save('medicos',medicos);closeModal('medico');renderMedicos();renderDashboard();
+  toast(idx>=0?'Médico atualizado!':'Médico adicionado! 🎉');
+}
+function editMedico(id){
+  const m=medicos.find(x=>x.id===id);if(!m)return;
+  document.getElementById('med-id').value=m.id;
+  document.getElementById('med-nome').value=m.nome;
+  document.getElementById('med-esp').value=m.especialidade||'';
+  document.getElementById('med-crm').value=m.crm||'';
+  document.getElementById('med-tel').value=m.telefone||'';
+  document.getElementById('med-conv').value=m.convenio||'';
+  document.getElementById('med-end').value=m.endereco||'';
+  document.getElementById('med-obs').value=m.observacoes||'';
+  document.getElementById('modal-medico-title').textContent='✏️ Editar Médico';
+  openModal('medico');
+}
+function delMedico(id){
+  if(!confirm('Remover este médico?'))return;
+  medicos=medicos.filter(m=>m.id!==id);save('medicos',medicos);renderMedicos();renderDashboard();toast('Médico removido.');
+}
+
+// ──────────────────────────────────────
+//  CONSULTAS
+// ──────────────────────────────────────
+const stConL={agendada:'📅 Agendada',realizada:'✅ Realizada',cancelada:'❌ Cancelada'};
+const stConB={agendada:'badge-pink',realizada:'badge-green',cancelada:'badge-red'};
+function renderConsultas(q=''){
+  const g=document.getElementById('grid-consultas');
+  const list=[...(q?consultas.filter(c=>JSON.stringify(c).toLowerCase().includes(q.toLowerCase())):consultas)]
+    .sort((a,b)=>new Date(b.data)-new Date(a.data));
+  if(!list.length){g.innerHTML=`<div class="empty-state"><div class="icon">📅</div><p>${q?'Nenhum resultado.':'Nenhuma consulta cadastrada ainda!'}</p></div>`;return;}
+  g.innerHTML=list.map(c=>`
+    <div class="item-card">
+      <div class="card-header">
+        <div class="card-icon" style="background:linear-gradient(135deg,#ffe0ef,#ffc2da)">📅</div>
+        <div><div class="card-title">${esc(c.medico)}</div><div class="card-sub">${fmtDate(c.data)}${c.hora?' às '+c.hora:''}</div></div>
+      </div>
+      <div class="card-body">
+        ${c.local?`<div class="field"><span>📍</span><span>${esc(c.local)}</span></div>`:''}
+        <div class="field"><span class="badge ${stConB[c.status]||'badge-pink'}">${stConL[c.status]||c.status}</span></div>
+        ${c.observacoes?`<div class="field"><span>📝</span><span>${esc(c.observacoes)}</span></div>`:''}
+      </div>
+      <div class="card-actions">
+        <button class="btn-edit" onclick="editConsulta('${c.id}')">✏️ Editar</button>
+        <button class="btn-del" onclick="delConsulta('${c.id}')">🗑️ Remover</button>
+      </div>
+    </div>`).join('');
+}
+function saveConsulta(){
+  const medico=document.getElementById('con-med').value.trim();
+  const data=document.getElementById('con-data').value;
+  if(!medico||!data){alert('Informe o médico e a data.');return;}
+  const id=document.getElementById('con-id').value||uid();
+  const obj={id,medico,data,hora:document.getElementById('con-hora').value,
+    local:document.getElementById('con-local').value.trim(),
+    status:document.getElementById('con-status').value,
+    observacoes:document.getElementById('con-obs').value.trim()};
+  const idx=consultas.findIndex(c=>c.id===id);
+  if(idx>=0)consultas[idx]=obj;else consultas.push(obj);
+  save('consultas',consultas);closeModal('consulta');renderConsultas();renderDashboard();
+  toast(idx>=0?'Consulta atualizada!':'Consulta adicionada! 🎉');
+}
+function editConsulta(id){
+  const c=consultas.find(x=>x.id===id);if(!c)return;
+  document.getElementById('con-id').value=c.id;document.getElementById('con-med').value=c.medico;
+  document.getElementById('con-data').value=c.data;document.getElementById('con-hora').value=c.hora||'';
+  document.getElementById('con-local').value=c.local||'';document.getElementById('con-status').value=c.status||'agendada';
+  document.getElementById('con-obs').value=c.observacoes||'';
+  document.getElementById('modal-consulta-title').textContent='✏️ Editar Consulta';openModal('consulta');
+}
+function delConsulta(id){
+  if(!confirm('Remover esta consulta?'))return;
+  consultas=consultas.filter(c=>c.id!==id);save('consultas',consultas);renderConsultas();renderDashboard();toast('Consulta removida.');
+}
+
+// ──────────────────────────────────────
+//  EXAMES
+// ──────────────────────────────────────
+const tipoExa={laboratorial:'🧪',imagem:'🩻',cardiologico:'❤️',outro:'📋'};
+const stExaL={agendado:'📅 Agendado',realizado:'✅ Realizado',aguardando:'⏳ Aguardando'};
+const stExaB={agendado:'badge-pink',realizado:'badge-green',aguardando:'badge-yellow'};
+function renderExames(q=''){
+  const g=document.getElementById('grid-exames');
+  const list=[...(q?exames.filter(e=>JSON.stringify(e).toLowerCase().includes(q.toLowerCase())):exames)]
+    .sort((a,b)=>new Date(b.data)-new Date(a.data));
+  if(!list.length){g.innerHTML=`<div class="empty-state"><div class="icon">🔬</div><p>${q?'Nenhum resultado.':'Nenhum exame cadastrado ainda!'}</p></div>`;return;}
+  g.innerHTML=list.map(e=>`
+    <div class="item-card">
+      <div class="card-header">
+        <div class="card-icon" style="background:linear-gradient(135deg,#ffe0ef,#ffc2da)">${tipoExa[e.tipo]||'🔬'}</div>
+        <div><div class="card-title">${esc(e.nome)}</div><div class="card-sub">${fmtDate(e.data)}</div></div>
+      </div>
+      <div class="card-body">
+        ${e.laboratorio?`<div class="field"><span>🏥</span><span>${esc(e.laboratorio)}</span></div>`:''}
+        ${e.medico?`<div class="field"><span>👩‍⚕️</span><span>${esc(e.medico)}</span></div>`:''}
+        <div class="field"><span class="badge ${stExaB[e.status]||'badge-pink'}">${stExaL[e.status]||e.status}</span></div>
+        ${e.observacoes?`<div class="field"><span>📝</span><span>${esc(e.observacoes)}</span></div>`:''}
+      </div>
+      <div class="card-actions">
+        <button class="btn-edit" onclick="editExame('${e.id}')">✏️ Editar</button>
+        <button class="btn-del" onclick="delExame('${e.id}')">🗑️ Remover</button>
+      </div>
+    </div>`).join('');
+}
+function saveExame(){
+  const nome=document.getElementById('exa-nome').value.trim();
+  const data=document.getElementById('exa-data').value;
+  if(!nome||!data){alert('Informe o nome e a data do exame.');return;}
+  const id=document.getElementById('exa-id').value||uid();
+  const obj={id,nome,data,tipo:document.getElementById('exa-tipo').value,
+    laboratorio:document.getElementById('exa-lab').value.trim(),
+    medico:document.getElementById('exa-medico').value.trim(),
+    status:document.getElementById('exa-status').value,
+    observacoes:document.getElementById('exa-obs').value.trim()};
+  const idx=exames.findIndex(e=>e.id===id);
+  if(idx>=0)exames[idx]=obj;else exames.push(obj);
+  save('exames',exames);closeModal('exame');renderExames();renderDashboard();
+  toast(idx>=0?'Exame atualizado!':'Exame adicionado! 🎉');
+}
+function editExame(id){
+  const e=exames.find(x=>x.id===id);if(!e)return;
+  document.getElementById('exa-id').value=e.id;document.getElementById('exa-nome').value=e.nome;
+  document.getElementById('exa-data').value=e.data;document.getElementById('exa-tipo').value=e.tipo||'laboratorial';
+  document.getElementById('exa-lab').value=e.laboratorio||'';document.getElementById('exa-medico').value=e.medico||'';
+  document.getElementById('exa-status').value=e.status||'agendado';document.getElementById('exa-obs').value=e.observacoes||'';
+  document.getElementById('modal-exame-title').textContent='✏️ Editar Exame';openModal('exame');
+}
+function delExame(id){
+  if(!confirm('Remover este exame?'))return;
+  exames=exames.filter(e=>e.id!==id);save('exames',exames);renderExames();renderDashboard();toast('Exame removido.');
+}
+
+// ──────────────────────────────────────
+//  MEDICAMENTOS  (com arquivar)
+// ──────────────────────────────────────
+function renderMedicamentos(q=''){
+  const g=document.getElementById('grid-medicamentos');
+  const ga=document.getElementById('arch-medicamentos');
+  const all=q?medicamentos.filter(m=>JSON.stringify(m).toLowerCase().includes(q.toLowerCase())):medicamentos;
+  const ativos=all.filter(m=>!m.arquivado);
+  const arq=all.filter(m=>m.arquivado);
+
+  if(!ativos.length){g.innerHTML=`<div class="empty-state"><div class="icon">💊</div><p>${q?'Nenhum resultado.':'Nenhum medicamento ativo!'}</p></div>`;}
+  else{g.innerHTML=ativos.map(m=>cardMedicamento(m)).join('');}
+
+  ga.innerHTML=arq.length?arq.map(m=>cardMedicamento(m,true)).join(''):'';
+  document.getElementById('toggle-arch-medicamentos').style.display=arq.length?'flex':'none';
+}
+function cardMedicamento(m,archived=false){
+  return `<div class="item-card${archived?' archived-card':''}">
+    <div class="card-header">
+      <div class="card-icon" style="background:linear-gradient(135deg,#ffe0ef,#ffc2da)">💊</div>
+      <div><div class="card-title">${esc(m.nome)}</div><div class="card-sub">${esc(m.dosagem||'')}</div></div>
+    </div>
+    <div class="card-body">
+      ${m.frequencia?`<div class="field"><span>🔄</span><span>${esc(m.frequencia)}</span></div>`:''}
+      ${m.horario?`<div class="field"><span>⏰</span><span>${esc(m.horario)}</span></div>`:''}
+      ${m.medico?`<div class="field"><span>👩‍⚕️</span><span>${esc(m.medico)}</span></div>`:''}
+      ${m.inicio?`<div class="field"><span>📅</span><span>Desde ${fmtDate(m.inicio)}</span></div>`:''}
+      <div class="field"><span class="badge ${m.continuo==='sim'?'badge-green':'badge-yellow'}">${m.continuo==='sim'?'Uso contínuo':'Temporário'}</span>${archived?'<span class="badge badge-gray" style="margin-left:4px">Arquivado</span>':''}</div>
+      ${m.observacoes?`<div class="field"><span>📝</span><span>${esc(m.observacoes)}</span></div>`:''}
+    </div>
+    <div class="card-actions">
+      <button class="btn-edit" onclick="editMedicamento('${m.id}')">✏️ Editar</button>
+      ${archived
+        ?`<button class="btn-unarchive" onclick="arquivarMedicamento('${m.id}',false)">♻️ Reativar</button>`
+        :`<button class="btn-archive" onclick="arquivarMedicamento('${m.id}',true)">📦 Arquivar</button>`}
+      <button class="btn-del" onclick="delMedicamento('${m.id}')">🗑️</button>
+    </div>
+  </div>`;
+}
+function arquivarMedicamento(id,status){
+  const idx=medicamentos.findIndex(m=>m.id===id);
+  if(idx>=0){medicamentos[idx].arquivado=status;save('medicamentos',medicamentos);renderMedicamentos();renderDashboard();}
+  toast(status?'Medicamento arquivado 📦':'Medicamento reativado ♻️');
+}
+function saveMedicamento(){
+  const nome=document.getElementById('medi-nome').value.trim();
+  if(!nome){alert('Informe o nome do medicamento.');return;}
+  const id=document.getElementById('medi-id').value||uid();
+  const old=medicamentos.find(m=>m.id===id);
+  const obj={id,nome,dosagem:document.getElementById('medi-dose').value.trim(),
+    frequencia:document.getElementById('medi-freq').value.trim(),
+    horario:document.getElementById('medi-hora').value.trim(),
+    continuo:document.getElementById('medi-cont').value,
+    medico:document.getElementById('medi-med').value.trim(),
+    inicio:document.getElementById('medi-inicio').value,
+    observacoes:document.getElementById('medi-obs').value.trim(),
+    arquivado:old?old.arquivado:false};
+  const idx=medicamentos.findIndex(m=>m.id===id);
+  if(idx>=0)medicamentos[idx]=obj;else medicamentos.push(obj);
+  save('medicamentos',medicamentos);closeModal('medicamento');renderMedicamentos();renderDashboard();
+  toast(idx>=0?'Medicamento atualizado!':'Medicamento adicionado! 🎉');
+}
+function editMedicamento(id){
+  const m=medicamentos.find(x=>x.id===id);if(!m)return;
+  document.getElementById('medi-id').value=m.id;document.getElementById('medi-nome').value=m.nome;
+  document.getElementById('medi-dose').value=m.dosagem||'';document.getElementById('medi-freq').value=m.frequencia||'';
+  document.getElementById('medi-hora').value=m.horario||'';document.getElementById('medi-cont').value=m.continuo||'sim';
+  document.getElementById('medi-med').value=m.medico||'';document.getElementById('medi-inicio').value=m.inicio||'';
+  document.getElementById('medi-obs').value=m.observacoes||'';
+  document.getElementById('modal-medicamento-title').textContent='✏️ Editar Medicamento';openModal('medicamento');
+}
+function delMedicamento(id){
+  if(!confirm('Remover este medicamento?'))return;
+  medicamentos=medicamentos.filter(m=>m.id!==id);save('medicamentos',medicamentos);renderMedicamentos();renderDashboard();toast('Medicamento removido.');
+}
+
+// ──────────────────────────────────────
+//  SUPLEMENTOS  (com arquivar)
+// ──────────────────────────────────────
+const formaIcon={capsula:'💊',po:'🥄',liquido:'💧',comprimido:'⬜',goma:'🍬',outro:'📦'};
+function renderSuplementos(q=''){
+  const g=document.getElementById('grid-suplementos');
+  const ga=document.getElementById('arch-suplementos');
+  const all=q?suplementos.filter(s=>JSON.stringify(s).toLowerCase().includes(q.toLowerCase())):suplementos;
+  const ativos=all.filter(s=>!s.arquivado);
+  const arq=all.filter(s=>s.arquivado);
+
+  if(!ativos.length){g.innerHTML=`<div class="empty-state"><div class="icon">🌿</div><p>${q?'Nenhum resultado.':'Nenhum suplemento ativo!'}</p></div>`;}
+  else{g.innerHTML=ativos.map(s=>cardSuplemento(s)).join('');}
+
+  ga.innerHTML=arq.length?arq.map(s=>cardSuplemento(s,true)).join(''):'';
+  document.getElementById('toggle-arch-suplementos').style.display=arq.length?'flex':'none';
+}
+function cardSuplemento(s,archived=false){
+  return `<div class="item-card${archived?' archived-card':''}">
+    <div class="card-header">
+      <div class="card-icon" style="background:linear-gradient(135deg,#e8faf2,#c2f0da)">${formaIcon[s.forma]||'🌿'}</div>
+      <div><div class="card-title">${esc(s.nome)}</div><div class="card-sub">${esc(s.dosagem||'')}</div></div>
+    </div>
+    <div class="card-body">
+      ${s.frequencia?`<div class="field"><span>🔄</span><span>${esc(s.frequencia)}</span></div>`:''}
+      ${s.horario?`<div class="field"><span>⏰</span><span>${esc(s.horario)}</span></div>`:''}
+      ${s.marca?`<div class="field"><span>🏷️</span><span>${esc(s.marca)}</span></div>`:''}
+      ${s.indicado?`<div class="field"><span>👩‍⚕️</span><span>${esc(s.indicado)}</span></div>`:''}
+      ${s.observacoes?`<div class="field"><span>🌿</span><span>${esc(s.observacoes)}</span></div>`:''}
+      ${archived?'<div class="field"><span class="badge badge-gray">Arquivado</span></div>':''}
+    </div>
+    <div class="card-actions">
+      <button class="btn-edit" onclick="editSuplemento('${s.id}')">✏️ Editar</button>
+      ${archived
+        ?`<button class="btn-unarchive" onclick="arquivarSuplemento('${s.id}',false)">♻️ Reativar</button>`
+        :`<button class="btn-archive" onclick="arquivarSuplemento('${s.id}',true)">📦 Arquivar</button>`}
+      <button class="btn-del" onclick="delSuplemento('${s.id}')">🗑️</button>
+    </div>
+  </div>`;
+}
+function arquivarSuplemento(id,status){
+  const idx=suplementos.findIndex(s=>s.id===id);
+  if(idx>=0){suplementos[idx].arquivado=status;save('suplementos',suplementos);renderSuplementos();renderDashboard();}
+  toast(status?'Suplemento arquivado 📦':'Suplemento reativado ♻️');
+}
+function saveSuplemento(){
+  const nome=document.getElementById('sup-nome').value.trim();
+  if(!nome){alert('Informe o nome do suplemento.');return;}
+  const id=document.getElementById('sup-id').value||uid();
+  const old=suplementos.find(s=>s.id===id);
+  const obj={id,nome,dosagem:document.getElementById('sup-dose').value.trim(),
+    frequencia:document.getElementById('sup-freq').value.trim(),
+    horario:document.getElementById('sup-hora').value.trim(),
+    forma:document.getElementById('sup-forma').value,
+    marca:document.getElementById('sup-marca').value.trim(),
+    indicado:document.getElementById('sup-indicado').value.trim(),
+    observacoes:document.getElementById('sup-obs').value.trim(),
+    arquivado:old?old.arquivado:false};
+  const idx=suplementos.findIndex(s=>s.id===id);
+  if(idx>=0)suplementos[idx]=obj;else suplementos.push(obj);
+  save('suplementos',suplementos);closeModal('suplemento');renderSuplementos();renderDashboard();
+  toast(idx>=0?'Suplemento atualizado!':'Suplemento adicionado! 🌿');
+}
+function editSuplemento(id){
+  const s=suplementos.find(x=>x.id===id);if(!s)return;
+  document.getElementById('sup-id').value=s.id;document.getElementById('sup-nome').value=s.nome;
+  document.getElementById('sup-dose').value=s.dosagem||'';document.getElementById('sup-freq').value=s.frequencia||'';
+  document.getElementById('sup-hora').value=s.horario||'';document.getElementById('sup-forma').value=s.forma||'capsula';
+  document.getElementById('sup-marca').value=s.marca||'';document.getElementById('sup-indicado').value=s.indicado||'';
+  document.getElementById('sup-obs').value=s.observacoes||'';
+  document.getElementById('modal-suplemento-title').textContent='✏️ Editar Suplemento';openModal('suplemento');
+}
+function delSuplemento(id){
+  if(!confirm('Remover este suplemento?'))return;
+  suplementos=suplementos.filter(s=>s.id!==id);save('suplementos',suplementos);renderSuplementos();renderDashboard();toast('Suplemento removido.');
+}
+
+// ──────────────────────────────────────
+//  LAUDOS
+// ──────────────────────────────────────
+function renderLaudos(q=''){
+  const g=document.getElementById('grid-laudos');
+  const list=[...(q?laudos.filter(l=>JSON.stringify(l).toLowerCase().includes(q.toLowerCase())):laudos)]
+    .sort((a,b)=>new Date(b.data)-new Date(a.data));
+  if(!list.length){
+    g.innerHTML=`<div class="empty-state"><div class="icon">📋</div><p>${q?'Nenhum resultado.':'Nenhum laudo cadastrado ainda!'}</p></div>`;
+    return;
+  }
+  g.innerHTML=list.map(l=>`
+    <div class="laudo-card">
+      <div class="laudo-top">
+        <div class="laudo-icon">📋</div>
+        <div>
+          <div class="laudo-title">${esc(l.titulo)}</div>
+          <div class="laudo-sub">${fmtDate(l.data)}${l.especialidade?' · '+esc(l.especialidade):''}</div>
+        </div>
+      </div>
+      ${l.cid?`<div class="field"><span>🏷️</span><span><strong>CID:</strong> ${esc(l.cid)}</span></div>`:''}
+      ${l.medico?`<div class="field"><span>👩‍⚕️</span><span>${esc(l.medico)}</span></div>`:''}
+      ${l.instituicao?`<div class="field"><span>🏥</span><span>${esc(l.instituicao)}</span></div>`:''}
+      ${l.resumo?`<div class="laudo-diag"><strong>Conteúdo</strong>${esc(l.resumo)}</div>`:''}
+      ${l.observacoes?`<div class="field"><span>📝</span><span>${esc(l.observacoes)}</span></div>`:''}
+      <div class="card-actions">
+        <button class="btn-edit" onclick="editLaudo('${l.id}')">✏️ Editar</button>
+        <button class="btn-del" onclick="delLaudo('${l.id}')">🗑️ Remover</button>
+      </div>
+    </div>`).join('');
+}
+function saveLaudo(){
+  const titulo=document.getElementById('lau-titulo').value.trim();
+  const data=document.getElementById('lau-data').value;
+  if(!titulo){alert('Informe o título do laudo.');return;}
+  const id=document.getElementById('lau-id').value||uid();
+  const obj={id,titulo,data,
+    especialidade: document.getElementById('lau-esp').value.trim(),
+    medico:        document.getElementById('lau-medico').value.trim(),
+    instituicao:   document.getElementById('lau-inst').value.trim(),
+    cid:           document.getElementById('lau-cid').value.trim(),
+    resumo:        document.getElementById('lau-resumo').value.trim(),
+    observacoes:   document.getElementById('lau-obs').value.trim()};
+  const idx=laudos.findIndex(l=>l.id===id);
+  if(idx>=0)laudos[idx]=obj;else laudos.push(obj);
+  save('laudos',laudos);closeModal('laudo');renderLaudos();
+  toast(idx>=0?'Laudo atualizado!':'Laudo adicionado! 📋');
+}
+function editLaudo(id){
+  const l=laudos.find(x=>x.id===id);if(!l)return;
+  document.getElementById('lau-id').value      =l.id;
+  document.getElementById('lau-titulo').value  =l.titulo;
+  document.getElementById('lau-data').value    =l.data||'';
+  document.getElementById('lau-esp').value     =l.especialidade||'';
+  document.getElementById('lau-medico').value  =l.medico||'';
+  document.getElementById('lau-inst').value    =l.instituicao||'';
+  document.getElementById('lau-cid').value     =l.cid||'';
+  document.getElementById('lau-resumo').value  =l.resumo||'';
+  document.getElementById('lau-obs').value     =l.observacoes||'';
+  document.getElementById('modal-laudo-title').textContent='✏️ Editar Laudo';
+  openModal('laudo');
+}
+function delLaudo(id){
+  if(!confirm('Remover este laudo?'))return;
+  laudos=laudos.filter(l=>l.id!==id);save('laudos',laudos);renderLaudos();toast('Laudo removido.');
+}
+
+// ──────────────────────────────────────
+//  MURAIS
+// ──────────────────────────────────────
+let murais = load('murais');
+let laudos = load('laudos');
+
+function renderMurais(){
+  const wrap = document.getElementById('murais-wrap');
+  let html = murais.map(m => muralCol(m)).join('');
+  html += `<button class="btn-new-mural" onclick="openModal('mural')">
+    <span class="icon">＋</span>Novo Mural
+  </button>`;
+  wrap.innerHTML = html;
+}
+
+function muralCol(m){
+  const notas = (m.notas||[]);
+  const notasHtml = notas.length
+    ? notas.map(n => stickyCard(m.id, n)).join('')
+    : `<div style="font-size:12px;color:var(--text2);opacity:.6;text-align:center;padding:10px 0">Nenhuma anotação ainda.</div>`;
+  return `<div class="mural-col" style="background:${esc(m.cor||'#ffe0ef')}">
+    <div class="mural-header">
+      <div class="mural-title">${esc(m.icon||'📌')} ${esc(m.titulo)}</div>
+      <div class="mural-actions">
+        <button class="btn-mural-sm" onclick="editMural('${m.id}')" title="Editar mural">✏️</button>
+        <button class="btn-mural-sm btn-mural-del" onclick="delMural('${m.id}')" title="Apagar mural">🗑️</button>
+      </div>
+    </div>
+    ${notasHtml}
+    <button class="btn-add-note" onclick="openNota('${m.id}')">＋ Adicionar anotação</button>
+  </div>`;
+}
+
+function stickyCard(muralId, n){
+  return `<div class="sticky" style="border-left-color:${esc(n.cor||'#d6006e')}">
+    <div class="sticky-text">${esc(n.texto)}</div>
+    ${n.data?`<div class="sticky-date">📅 ${n.data}</div>`:''}
+    <div class="sticky-footer">
+      <button class="btn-sticky-edit" title="Editar" onclick="editNota('${muralId}','${n.id}')">✏️</button>
+      <button class="btn-sticky-del" title="Apagar" onclick="delNota('${muralId}','${n.id}')">🗑️</button>
+    </div>
+  </div>`;
+}
+
+function openNota(muralId){
+  document.getElementById('nota-mural-id').value = muralId;
+  document.getElementById('nota-id').value = '';
+  document.getElementById('nota-texto').value = '';
+  document.getElementById('nota-cor').value = '#d6006e';
+  document.getElementById('modal-nota-title').textContent = '📝 Nova Anotação';
+  openModal('nota');
+}
+
+function editNota(muralId, notaId){
+  const m = murais.find(x=>x.id===muralId); if(!m) return;
+  const n = (m.notas||[]).find(x=>x.id===notaId); if(!n) return;
+  document.getElementById('nota-mural-id').value = muralId;
+  document.getElementById('nota-id').value = notaId;
+  document.getElementById('nota-texto').value = n.texto;
+  document.getElementById('nota-cor').value = n.cor||'#d6006e';
+  document.getElementById('modal-nota-title').textContent = '✏️ Editar Anotação';
+  openModal('nota');
+}
+
+function saveNota(){
+  const texto = document.getElementById('nota-texto').value.trim();
+  if(!texto){alert('Escreva algo na anotação.');return;}
+  const muralId = document.getElementById('nota-mural-id').value;
+  const notaId  = document.getElementById('nota-id').value;
+  const cor     = document.getElementById('nota-cor').value;
+  const m = murais.find(x=>x.id===muralId); if(!m) return;
+  if(!m.notas) m.notas=[];
+  const today = new Date().toLocaleDateString('pt-BR');
+  if(notaId){
+    const idx = m.notas.findIndex(n=>n.id===notaId);
+    if(idx>=0) m.notas[idx]={...m.notas[idx], texto, cor};
+  } else {
+    m.notas.push({id:uid(), texto, cor, data: today});
+  }
+  save('murais', murais);
+  closeModal('nota');
+  renderMurais();
+  toast(notaId?'Anotação atualizada!':'Anotação adicionada! 📌');
+}
+
+function delNota(muralId, notaId){
+  if(!confirm('Apagar esta anotação?'))return;
+  const m = murais.find(x=>x.id===muralId); if(!m) return;
+  m.notas = (m.notas||[]).filter(n=>n.id!==notaId);
+  save('murais', murais); renderMurais(); toast('Anotação removida.');
+}
+
+function saveMural(){
+  const titulo = document.getElementById('mural-titulo').value.trim();
+  if(!titulo){alert('Informe o título do mural.');return;}
+  const id  = document.getElementById('mural-id').value || uid();
+  const icon = document.getElementById('mural-icon').value;
+  const cor  = document.getElementById('mural-cor').value;
+  const idx  = murais.findIndex(m=>m.id===id);
+  if(idx>=0){
+    murais[idx] = {...murais[idx], titulo, icon, cor};
+  } else {
+    murais.push({id, titulo, icon, cor, notas:[]});
+  }
+  save('murais', murais); closeModal('mural'); renderMurais();
+  toast(idx>=0?'Mural atualizado!':'Mural criado! 🎉');
+}
+
+function editMural(id){
+  const m = murais.find(x=>x.id===id); if(!m) return;
+  document.getElementById('mural-id').value    = m.id;
+  document.getElementById('mural-titulo').value = m.titulo;
+  document.getElementById('mural-icon').value  = m.icon||'📌';
+  document.getElementById('mural-cor').value   = m.cor||'#ffe0ef';
+  document.getElementById('modal-mural-title').textContent = '✏️ Editar Mural';
+  openModal('mural');
+}
+
+function delMural(id){
+  if(!confirm('Apagar este mural e todas as anotações?'))return;
+  murais = murais.filter(m=>m.id!==id);
+  save('murais', murais); renderMurais(); toast('Mural removido.');
+}
+
+// ──────────────────────────────────────
+//  UTILS
+// ──────────────────────────────────────
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function fmtDate(s){if(!s)return'';const[y,m,d]=s.split('-');return`${d}/${m}/${y}`;}
+let toastTimer;
+function toast(msg){
+  const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2800);
+}
+
+// ──────────────────────────────────────
+//  SEED — dados iniciais
+// ──────────────────────────────────────
+(function seedInitialData(){
+  if(!localStorage.getItem(KEYS.medicos)){
+    const ml=[
+      {id:uid(),nome:'Dra. Carla',especialidade:'Gastroenterologia',crm:'',telefone:'',convenio:'',endereco:'Hospital São Luís',observacoes:''},
+      {id:uid(),nome:'Dra. Patrícia',especialidade:'Odontologia',crm:'',telefone:'',convenio:'',endereco:'Clínica AMS — Campinas',observacoes:''}
+    ];
+    save('medicos',ml);medicos=ml;
+  }
+  if(!localStorage.getItem(KEYS.consultas)){
+    const cl=[
+      {id:uid(),medico:'Dra. Carla',data:'2026-03-31',hora:'11:40',local:'Hospital São Luís',status:'realizada',observacoes:'Consulta sobre dores fortes de barriga. Exames apresentados.'},
+      {id:uid(),medico:'Dra. Patrícia',data:'2026-04-16',hora:'14:00',local:'Clínica AMS — Campinas',status:'agendada',observacoes:'Limpeza de dente.'}
+    ];
+    save('consultas',cl);consultas=cl;
+  }
+  if(!localStorage.getItem(KEYS.suplementos)){
+    const sl=[
+      {id:uid(),nome:'Desincha',dosagem:'',frequencia:'Diária — pausa após 4–6 semanas',horario:'Manhã (ao acordar)',forma:'liquido',marca:'',indicado:'',observacoes:'Tomar ao acordar, junto ao café.',arquivado:false},
+      {id:uid(),nome:'Vitamina D3',dosagem:'7.000 UI',frequencia:'Seg / Qua / Sex',horario:'Manhã (ao acordar)',forma:'capsula',marca:'',indicado:'',observacoes:'',arquivado:false},
+      {id:uid(),nome:'Psyllium',dosagem:'',frequencia:'Diária',horario:'Meio da manhã',forma:'po',marca:'',indicado:'',observacoes:'Tomar longe de outros suplementos (30–60 min de intervalo).',arquivado:false},
+      {id:uid(),nome:'Centella Asiática',dosagem:'450–500 mg',frequencia:'Diária — ciclo de 8–12 semanas',horario:'Almoço',forma:'capsula',marca:'',indicado:'',observacoes:'Fazer ciclo: 8–12 semanas de uso, depois pausa.',arquivado:false},
+      {id:uid(),nome:'Ômega-3 (EPA + DHA)',dosagem:'',frequencia:'Diária',horario:'Almoço',forma:'capsula',marca:'',indicado:'',observacoes:'',arquivado:false},
+      {id:uid(),nome:'Creatina',dosagem:'3–5 g',frequencia:'Diária (inclusive sem treino)',horario:'Almoço',forma:'po',marca:'',indicado:'',observacoes:'Tomar todos os dias, mesmo nos dias sem treino.',arquivado:false},
+      {id:uid(),nome:'Cafeína',dosagem:'100–200 mg',frequencia:'Nos dias de treino',horario:'Pré-treino',forma:'comprimido',marca:'',indicado:'',observacoes:'Somente nos dias de treino.',arquivado:false},
+      {id:uid(),nome:'Whey Protein',dosagem:'20–30 g',frequencia:'Nos dias de treino',horario:'Pós-treino',forma:'po',marca:'',indicado:'',observacoes:'Somente nos dias de treino.',arquivado:false},
+      {id:uid(),nome:'Colágeno VERISOL®',dosagem:'8–10 g',frequencia:'Diária',horario:'Noite (antes de dormir)',forma:'po',marca:'',indicado:'',observacoes:'',arquivado:false},
+      {id:uid(),nome:'Vitamina C',dosagem:'100–200 mg',frequencia:'Diária',horario:'Noite (antes de dormir)',forma:'comprimido',marca:'',indicado:'',observacoes:'',arquivado:false},
+      {id:uid(),nome:'Magnésio Bisglicinato',dosagem:'300–400 mg',frequencia:'Diária',horario:'Noite (antes de dormir)',forma:'capsula',marca:'',indicado:'',observacoes:'',arquivado:false},
+    ];
+    save('suplementos',sl);suplementos=sl;
+  }
+})();
+
+// ──────────────────────────────────────
+//  MIGRAÇÃO
+// ──────────────────────────────────────
+(function migrateData(){
+  let ch=false;
+  medicos=medicos.map(m=>{if(m.nome==='Gastroenterologista'){ch=true;return{...m,nome:'Dra. Carla'};}return m;});
+  if(ch)save('medicos',medicos);
+  let cc=false;
+  consultas=consultas.map(c=>{if(c.medico==='Gastroenterologista'){cc=true;return{...c,medico:'Dra. Carla',status:'realizada'};}return c;});
+  if(cc)save('consultas',consultas);
+  const temPatricia=medicos.some(m=>m.nome==='Dra. Patrícia'&&m.especialidade==='Odontologia');
+  if(!temPatricia){medicos.push({id:uid(),nome:'Dra. Patrícia',especialidade:'Odontologia',crm:'',telefone:'',convenio:'',endereco:'Clínica AMS — Campinas',observacoes:''});save('medicos',medicos);}
+  const temLimpeza=consultas.some(c=>c.data==='2026-04-16'&&c.medico==='Dra. Patrícia');
+  if(!temLimpeza){consultas.push({id:uid(),medico:'Dra. Patrícia',data:'2026-04-16',hora:'14:00',local:'Clínica AMS — Campinas',status:'agendada',observacoes:'Limpeza de dente.'});save('consultas',consultas);}
+  // garante campo arquivado em registros antigos
+  let chm=false;
+  medicamentos=medicamentos.map(m=>{if(m.arquivado===undefined){chm=true;return{...m,arquivado:false};}return m;});
+  if(chm)save('medicamentos',medicamentos);
+  let chs=false;
+  suplementos=suplementos.map(s=>{if(s.arquivado===undefined){chs=true;return{...s,arquivado:false};}return s;});
+  if(chs)save('suplementos',suplementos);
+  // adiciona suplementos do protocolo se não existirem
+  const protocolo=[
+    {nome:'Desincha',dosagem:'',frequencia:'Diária — pausa após 4–6 semanas',horario:'Manhã (ao acordar)',forma:'liquido',marca:'',indicado:'',observacoes:'Tomar ao acordar, junto ao café.'},
+    {nome:'Vitamina D3',dosagem:'7.000 UI',frequencia:'Seg / Qua / Sex',horario:'Manhã (ao acordar)',forma:'capsula',marca:'',indicado:'',observacoes:''},
+    {nome:'Psyllium',dosagem:'',frequencia:'Diária',horario:'Meio da manhã',forma:'po',marca:'',indicado:'',observacoes:'Tomar longe de outros suplementos (30–60 min).'},
+    {nome:'Centella Asiática',dosagem:'450–500 mg',frequencia:'Diária — ciclo 8–12 semanas',horario:'Almoço',forma:'capsula',marca:'',indicado:'',observacoes:'Fazer ciclo: 8–12 semanas, depois pausa.'},
+    {nome:'Ômega-3 (EPA + DHA)',dosagem:'',frequencia:'Diária',horario:'Almoço',forma:'capsula',marca:'',indicado:'',observacoes:''},
+    {nome:'Creatina',dosagem:'3–5 g',frequencia:'Diária (inclusive sem treino)',horario:'Almoço',forma:'po',marca:'',indicado:'',observacoes:'Tomar todos os dias.'},
+    {nome:'Cafeína',dosagem:'100–200 mg',frequencia:'Nos dias de treino',horario:'Pré-treino',forma:'comprimido',marca:'',indicado:'',observacoes:'Somente nos dias de treino.'},
+    {nome:'Whey Protein',dosagem:'20–30 g',frequencia:'Nos dias de treino',horario:'Pós-treino',forma:'po',marca:'',indicado:'',observacoes:'Somente nos dias de treino.'},
+    {nome:'Colágeno VERISOL®',dosagem:'8–10 g',frequencia:'Diária',horario:'Noite (antes de dormir)',forma:'po',marca:'',indicado:'',observacoes:''},
+    {nome:'Vitamina C',dosagem:'100–200 mg',frequencia:'Diária',horario:'Noite (antes de dormir)',forma:'comprimido',marca:'',indicado:'',observacoes:''},
+    {nome:'Magnésio Bisglicinato',dosagem:'300–400 mg',frequencia:'Diária',horario:'Noite (antes de dormir)',forma:'capsula',marca:'',indicado:'',observacoes:''},
+  ];
+  let csp=false;
+  protocolo.forEach(p=>{if(!suplementos.some(s=>s.nome===p.nome)){suplementos.push({id:uid(),...p,arquivado:false});csp=true;}});
+  if(csp)save('suplementos',suplementos);
+
+  // Adiciona nota de retorno da Dra. Nayara no mural de Retornos (se existir)
+  const muralRetornos = murais.find(m=>m.titulo==='Retornos');
+  if(muralRetornos){
+    const temNotaNayara = (muralRetornos.notas||[]).some(n=>n.texto.includes('Nayara'));
+    if(!temNotaNayara){
+      if(!muralRetornos.notas) muralRetornos.notas=[];
+      muralRetornos.notas.unshift({id:uid(),
+        texto:'Retorno Dra. Nayara (hemato) — 27/09/2026\nOncologia Americas — Niterói\n📧 Enviar exames antes:\nnayara.hematologia@gmail.com',
+        cor:'#00a86b',data:new Date().toLocaleDateString('pt-BR')});
+      save('murais',murais);
+    }
+  }
+  // Adiciona Dra. Nayara no mural Médicos Principais (se existir)
+  const muralMedicos = murais.find(m=>m.titulo==='Médicos Principais');
+  if(muralMedicos){
+    const temNayaraMural = (muralMedicos.notas||[]).some(n=>n.texto.includes('Nayara'));
+    if(!temNayaraMural){
+      if(!muralMedicos.notas) muralMedicos.notas=[];
+      muralMedicos.notas.unshift({id:uid(),
+        texto:'Dra. Nayara Cristina Coelho Oliveira — Hematologista\nCRM 1038443\nOncologia Americas — Niterói\n📧 nayara.hematologia@gmail.com',
+        cor:'#d6006e',data:new Date().toLocaleDateString('pt-BR')});
+      save('murais',murais);
+    }
+  }
+
+  // Dra. Nayara — hematologista
+  const temNayara = medicos.some(m=>m.nome==='Dra. Nayara Cristina Coelho Oliveira');
+  if(!temNayara){
+    medicos.push({id:uid(),nome:'Dra. Nayara Cristina Coelho Oliveira',especialidade:'Hematologia',
+      crm:'1038443',telefone:'(21) 3385-2000',convenio:'',
+      endereco:'Oncologia Americas — Niterói / Icaraí\nAv. Sete de Setembro, 179',
+      observacoes:'E-mail: nayara.hematologia@gmail.com\nEnviar exames pendentes por e-mail.'});
+    save('medicos',medicos);
+  }
+
+  // Mecobolamina 1.000mcg — 60 dias a partir de 03/04/2026
+  const temMeco = medicamentos.some(m=>m.nome==='Mecobolamina 1.000mcg');
+  if(!temMeco){
+    medicamentos.push({id:uid(),nome:'Mecobolamina 1.000mcg',
+      dosagem:'1.000mcg — 1 comprimido',frequencia:'1x ao dia por 60 dias (até ~02/06/2026)',
+      horario:'Qualquer horário',continuo:'nao',
+      medico:'Dra. Nayara Cristina Coelho Oliveira',inicio:'2026-04-03',
+      observacoes:'⚠️ Colocar 1 comp EMBAIXO DA LÍNGUA e deixar dissolver completamente. NÃO mastigar nem engolir.\nUso oral sublingual. Duração: 60 dias.',
+      arquivado:false});
+    save('medicamentos',medicamentos);
+  }
+
+  // Ácido Fólico 5mg — contínuo 3x/semana
+  const temAcido = medicamentos.some(m=>m.nome==='Ácido Fólico 5mg');
+  if(!temAcido){
+    medicamentos.push({id:uid(),nome:'Ácido Fólico 5mg',
+      dosagem:'5mg — 1 comprimido',frequencia:'3x por semana (contínuo)',
+      horario:'Conforme orientação',continuo:'sim',
+      medico:'Dra. Nayara Cristina Coelho Oliveira',inicio:'2026-04-03',
+      observacoes:'Uso oral. Contínuo.',
+      arquivado:false});
+    save('medicamentos',medicamentos);
+  }
+
+  // Retorno com hematologista em 6 meses (27/09/2026)
+  const temRetornoHemato = consultas.some(c=>c.data==='2026-09-27'&&c.medico==='Dra. Nayara Cristina Coelho Oliveira');
+  if(!temRetornoHemato){
+    consultas.push({id:uid(),medico:'Dra. Nayara Cristina Coelho Oliveira',data:'2026-09-27',hora:'',
+      local:'Oncologia Americas — Niterói',status:'agendada',
+      observacoes:'Retorno de 6 meses. Enviar exames pendentes antes por e-mail: nayara.hematologia@gmail.com'});
+    save('consultas',consultas);
+  }
+
+  // Dr. Vinicius Borges Grilo — hematologista Campinas
+  const temVinicius = medicos.some(m=>m.crm==='130949');
+  if(!temVinicius){
+    medicos.push({id:uid(),nome:'Dr. Vinicius Borges Grilo',especialidade:'Hematologia / Hemoterapia / TMO',
+      crm:'130949',telefone:'(19) 3787-3400',convenio:'',
+      endereco:'Centro Oncologia Campinas\nR. Alberto de Salvo, 311 – Barão Geraldo, Campinas/SP',
+      observacoes:'coc@oncologia.com.br | www.oncologia.com.br'});
+    save('medicos',medicos);
+  }
+
+  // Laudo de Alfatalassemia — 24/03/2026
+  if(!localStorage.getItem(KEYS.laudos)){
+    const ll=[{
+      id:uid(),
+      titulo:'Relatório Médico — Alfatalassemia',
+      data:'2026-03-24',
+      especialidade:'Hematologia / Hemoterapia',
+      medico:'Dr. Vinicius Borges Grilo — CRM 130949',
+      instituicao:'Centro Oncologia Campinas',
+      cid:'D56.0 — Alfatalassemia',
+      resumo:'Paciente Mayara Calara Grego, 35 anos, está em acompanhamento devido a quadro de Alfatalassemia (CID10: D56.0) diagnosticada no ano de 2016.\nMantém níveis de hemoglobina em torno de 12,0g/dL e VCM 70fL, sem necessidade transfusional.\nManteve conduta expectante desde então.',
+      observacoes:'Campinas, Terça-Feira, 24 de Março de 2026.'
+    }];
+    save('laudos',ll); laudos=ll;
+  } else {
+    const temLaudoAlfa = laudos.some(l=>l.cid&&l.cid.includes('D56.0'));
+    if(!temLaudoAlfa){
+      laudos.push({
+        id:uid(),
+        titulo:'Relatório Médico — Alfatalassemia',
+        data:'2026-03-24',
+        especialidade:'Hematologia / Hemoterapia',
+        medico:'Dr. Vinicius Borges Grilo — CRM 130949',
+        instituicao:'Centro Oncologia Campinas',
+        cid:'D56.0 — Alfatalassemia',
+        resumo:'Paciente Mayara Calara Grego, 35 anos, está em acompanhamento devido a quadro de Alfatalassemia (CID10: D56.0) diagnosticada no ano de 2016.\nMantém níveis de hemoglobina em torno de 12,0g/dL e VCM 70fL, sem necessidade transfusional.\nManteve conduta expectante desde então.',
+        observacoes:'Campinas, Terça-Feira, 24 de Março de 2026.'
+      });
+      save('laudos',laudos);
+    }
+  }
+
+  // Seed murais iniciais
+  if(!localStorage.getItem(KEYS.murais)){
+    const today = new Date().toLocaleDateString('pt-BR');
+    const ml=[
+      {id:uid(),titulo:'Retornos',icon:'🔁',cor:'#d4edda',notas:[
+        {id:uid(),texto:'Retorno Dra. Nayara (hemato) — 27/09/2026\nOncologia Americas — Niterói\n📧 Enviar exames por e-mail antes:\nnayara.hematologia@gmail.com',cor:'#00a86b',data:today},
+        {id:uid(),texto:'Retornar com Dra. Carla (gastro) após resultado dos exames',cor:'#e07800',data:today},
+        {id:uid(),texto:'Dra. Patrícia (dentista) — próxima limpeza em ~Out/2026',cor:'#0077aa',data:today},
+      ]},
+      {id:uid(),titulo:'Médicos Principais',icon:'👩‍⚕️',cor:'#ffe0ef',notas:[
+        {id:uid(),texto:'Dra. Nayara Cristina Coelho Oliveira — Hematologista\nCRM 1038443\nOncologia Americas — Niterói\n📧 nayara.hematologia@gmail.com',cor:'#d6006e',data:today},
+        {id:uid(),texto:'Dra. Carla — Gastroenterologista\nHospital São Luís',cor:'#d6006e',data:today},
+        {id:uid(),texto:'Dra. Patrícia — Dentista\nClínica AMS — Campinas',cor:'#d6006e',data:today},
+      ]},
+      {id:uid(),titulo:'Periodicidade',icon:'📅',cor:'#d1ecf1',notas:[
+        {id:uid(),texto:'Hematologista: retorno a cada 6 meses',cor:'#0077aa',data:today},
+        {id:uid(),texto:'Dentista: limpeza a cada 6 meses',cor:'#0077aa',data:today},
+        {id:uid(),texto:'Hemograma completo: a cada 6 meses',cor:'#0077aa',data:today},
+        {id:uid(),texto:'Consulta gastro: conforme retorno médico',cor:'#0077aa',data:today},
+      ]},
+      {id:uid(),titulo:'Afirmações',icon:'✨',cor:'#fce8b2',notas:[
+        {id:uid(),texto:'Eu cuido do meu corpo com amor e disciplina 💕',cor:'#e07800',data:today},
+        {id:uid(),texto:'Cada passo que dou é em direção à minha saúde plena ✨',cor:'#7c3aed',data:today},
+      ]},
+    ];
+    save('murais',ml); murais=ml;
+  }
+})();
+
+// ──────────────────────────────────────
+//  INIT
+// ──────────────────────────────────────
+renderDashboard();
+</script>
+</body>
+</html>
